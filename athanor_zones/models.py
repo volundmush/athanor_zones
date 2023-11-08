@@ -21,3 +21,16 @@ class ZoneDB(TypedObject):
 
     def __str__(self):
         return self.key
+
+
+class ZoneObject(models.Model):
+    id = models.OneToOneField(
+        "objects.ObjectDB",
+        primary_key=True,
+        related_name="zone",
+        on_delete=models.CASCADE,
+    )
+    zone = models.ForeignKey(ZoneDB, related_name="objects", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.id)
