@@ -25,11 +25,25 @@ def init(settings, plugins: dict):
         "delete",
         "edit",
         "examine",
-        "traverse",
         "teleport_here",
     ]
 
-    for zat in settings.ZONE_ACCESS_TYPES:
-        settings.OBJECT_ACCESS_FUNCTIONS[zat].append("athanor_zones.access.zone")
+    settings.ZONE_DEFAULT_LOCK_TYPES = [
+        "OBJECT_OBJECT",
+        "OBJECT_ROOM",
+        "OBJECT_CHARACTER",
+        "OBJECT_EXIT",
+    ]
 
     settings.OPTIONS_ZONE_DEFAULT = dict()
+
+    settings.ACCESS_FUNCTIONS_LIST.append("ZONE")
+
+
+def post_init(settings, plugins):
+    for t in settings.ZONE_DEFAULT_LOCK_TYPES:
+        func_type = f"{t}_DEFAULT_LOCKS"
+        func_dict = getattr(settings, func_type)
+
+        for zat in settings.ZONE_ACCESS_TYPES:
+            func_dict[zat].insert(0, "athanor_zones.access.zone")
