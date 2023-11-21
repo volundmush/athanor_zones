@@ -7,7 +7,6 @@ def init(settings, plugins: dict):
     settings.INSTALLED_APPS.append("athanor_zones")
     settings.BASE_ZONE_TYPECLASS = "athanor_zones.zones.DefaultZone"
     settings.CMD_MODULES_CHARACTER.append("athanor_zones.commands")
-    settings.AT_SERVER_STARTSTOP_MODULE.append("athanor_zones.startup_hooks")
     settings.ZONE_ACCESS_FUNCTIONS = defaultdict(list)
     athanor.ZONE_ACCESS_FUNCTIONS = defaultdict(list)
 
